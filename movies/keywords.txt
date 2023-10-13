@@ -1,0 +1,2 @@
+0:awful,terrible,horrible,laughable,ridiculous,stupid,lousy,horribly
+1:great,solid,nice,fine,also,well,excellent,strong,terrific

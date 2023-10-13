@@ -5,9 +5,9 @@ from time import time
 import csv
 import keras.backend as K
 # K.set_session(K.tf.Session(config=K.tf.ConfigProto(intra_op_parallelism_threads=30, inter_op_parallelism_threads=30)))
-from keras.engine.topology import Layer
+from keras.layers import Layer
 from keras.layers import Dense, Input, Convolution1D, Embedding, GlobalMaxPooling1D, GRU, TimeDistributed
-from keras.layers.merge import Concatenate
+from keras.layers import Concatenate
 from keras.models import Model
 from keras import initializers, regularizers, constraints
 from keras.initializers import VarianceScaling, RandomUniform
@@ -246,7 +246,7 @@ class WSTC(object):
                     print('f1_macro = {}, f1_micro = {}'.format(f1_macro, f1_micro))
                     
                 # check stop criterion
-                delta_label = np.sum(y_pred != y_pred_last).astype(np.float) / y_pred.shape[0]
+                delta_label = np.sum(y_pred != y_pred_last).astype(float) / y_pred.shape[0]
                 y_pred_last = np.copy(y_pred)
                 print('Fraction of documents with label changes: {} %'.format(np.round(delta_label*100, 3)))
                 if ite > 0 and delta_label < tol/100:

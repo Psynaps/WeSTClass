@@ -1,0 +1,4 @@
+0:ideology,political,agendas,liberalism,presidency,divisive,ideological,polarizing,misunderstood,critique
+1:great,solid,nice,fine,also,well,excellent,strong,terrific
+2:westlb commercial_bank business_jet pc-making apax cinven wealth-management personal-computer wealth_management 1.03 
+3:

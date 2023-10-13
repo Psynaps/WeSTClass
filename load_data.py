@@ -9,21 +9,35 @@ from nltk import tokenize
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
 
+import nltk
+nltk.download('punkt')
+movies_train_path = 'movies_train.txt'
+news_train_path = 'news_train.txt'
 
 def read_file(data_dir, with_evaluation):
     data = []
     target = []
-    with open(join(data_dir, 'dataset.csv'), 'rt', encoding='utf-8') as csvfile:
-        csv.field_size_limit(500 * 1024 * 1024)
-        reader = csv.reader(csvfile)
-        for row in reader:
-            if data_dir == './agnews':
-                doc = row[1] + '. ' + row[2]
-                data.append(doc)
-                target.append(int(row[0]) - 1)
-            elif data_dir == './yelp':
-                data.append(row[1])
-                target.append(int(row[0]) - 1)
+    if data_dir == './movies':
+        with open(join(data_dir, movies_train_path), 'r', encoding='utf-8') as file:
+            for line in file:
+                data.append(line)
+    elif data_dir == './news':
+        with open(join(data_dir, news_train_path), 'r', encoding='utf-8') as file:
+            for line in file:
+                data.append(line)
+    else:
+        with open(join(data_dir, 'dataset.csv'), 'rt', encoding='utf-8') as csvfile:
+            csv.field_size_limit(500 * 1024 * 1024)
+            reader = csv.reader(csvfile)
+            for row in reader:
+                if data_dir == './agnews':
+                    doc = row[1] + '. ' + row[2]
+                    data.append(doc)
+                    target.append(int(row[0]) - 1)
+                elif data_dir == './yelp':
+                    data.append(row[1])
+                    target.append(int(row[0]) - 1)
+
     if with_evaluation:
         y = np.asarray(target)
         assert len(data) == len(y)
@@ -50,6 +64,7 @@ def clean_str(string):
     string = re.sub(r"\(", " \( ", string)
     string = re.sub(r"\)", " \) ", string)
     string = re.sub(r"\?", " \? ", string)
+    # string = re.sub(r"-", " - ", string)
     string = re.sub(r"\s{2,}", " ", string)
     return string.strip().lower()
 
